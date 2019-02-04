@@ -5,6 +5,10 @@ public class MidTerm {
 		System.out.println("Lukes print");
 		System.out.println("Krzysztof");
 		System.out.println("Mike is in the building");
+
+	
+	
+	
 	}
 
 }
