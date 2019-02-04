@@ -8,6 +8,10 @@ public class Book {
 	private boolean checkedIn;
 	private Date dueDate;
 	
+	public Book() {
+		
+	}
+	
 	// getters and setters for each field
 	public String getTitle() {
 		return title;
