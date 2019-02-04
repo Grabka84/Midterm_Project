@@ -24,7 +24,7 @@ public class Book {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public boolean isCheckedIn() {
+	public boolean getCheckedIn() {
 		return checkedIn;
 	}
 	
@@ -51,12 +51,14 @@ public class Book {
 	@Override
 	public String toString() {
 		String isCheckedIn = "";
-		if (checkedIn) {
-			isCheckedIn = "available ";
+		String dueBy = "";
+		if (getCheckedIn()) {
+			isCheckedIn = "available.";
 		} else {
-			isCheckedIn = "checked out ";
+			isCheckedIn = "checked out, ";
+			dueBy = "and is due back by " + getDueDate();
 		}
-		return "Book #" + refNum + ": " + title + " by " + author + " is " + isCheckedIn;  
+		return "Book #" + getRefNum() + ": " + getTitle() + " by " + getAuthor() + " is " + isCheckedIn + dueBy;  
 				
 	}
 
