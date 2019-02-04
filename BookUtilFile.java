@@ -2,22 +2,21 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.Arrays;
-import java.util.List;
+import java.util.ArrayList;
 
 public class BookUtilFile {
 
 	private static Path filePath = Paths.get("Books.txt");
-
+	
+	
 	public static void appendToFile(Book books) throws IOException {
 		if (Files.notExists(filePath)) {
 			Files.createFile(filePath);
 		}
 		
-		List<String> bookList = Arrays.asList(books.toString());
-		
-		Files.write(filePath, bookList, StandardOpenOption.TRUNCATE_EXISTING);
+		ArrayList<Book> bookList = new ArrayList<Book>(); // array list that will hold the list of books
+				
+//		Files.write(filePath, stringTo.bookList, StandardOpenOption.TRUNCATE_EXISTING);
 
 	}
 	
