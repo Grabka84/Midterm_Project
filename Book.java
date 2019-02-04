@@ -8,9 +8,27 @@ public class Book {
 	private boolean checkedIn;
 	private Date dueDate;
 	
-	public Book() {
+	// constructors 
+		// empty constructor
+		Book(){};
 		
-	}
+		// new book that's automatically checked in and not checked out
+		Book(Integer refNum, String title, String author){
+			setRefNum(refNum);
+			setTitle(title);
+			setAuthor(author);
+			setCheckedIn(true);
+			setDueDate(null);
+		}
+		
+		// new book that may or may not be checked in
+		Book(Integer refNum, String title, String author, boolean checkedIn, Date dueDate){
+			setRefNum(refNum);
+			setTitle(title);
+			setAuthor(author);
+			setCheckedIn(checkedIn);
+			setDueDate(dueDate);
+		}
 	
 	// getters and setters for each field
 	public String getTitle() {
@@ -63,7 +81,6 @@ public class Book {
 			dueBy = "and is due back by " + getDueDate();
 		}
 		return "Book #" + getRefNum() + ": " + getTitle() + " by " + getAuthor() + " is " + isCheckedIn + dueBy;  
-				
 	}
 
 }

@@ -6,24 +6,13 @@ public class MidTerm {
 
 
 	public static void main(String[] args) throws IOException {
-		System.out.println("Lukes print");
-		System.out.println("Krzysztof");
-		System.out.println("Mike is in the building");
-		Book b = new Book();
-		b.setAuthor("Test");
-
 		
 		Scanner scnr = new Scanner(System.in);
 		int choice;
 		boolean userExit = false;
 		
-
 		populateSet();
 		displayHeader();
-
-	   BookUtilFile.appendToFile(b);
-
-	
 	   
 	   do {
 		choice = displayMenu(scnr); 
@@ -44,12 +33,13 @@ public class MidTerm {
 			case 5:
 				returnBook();
 				break;
+			case 6:
+				addBook();
+				break;
 			case 0:
 				userExit = true;
 			}
 		} while (!userExit);
-		
-		
 		
 	}
 	
@@ -60,7 +50,9 @@ public class MidTerm {
 		System.out.println("-------------------------------------------");
 	}
 	
-	private static void populateSet() {}
+	private static void populateSet() {
+		
+	}
 	
 	private static int displayMenu(Scanner scnr) {
 		System.out.println("What would you like to do?");
@@ -77,7 +69,6 @@ public class MidTerm {
 	
 	public static void displayBookList() {
 		System.out.println("You have chosen to display all of the books in the current list");
-
 	}
 	
 	public static void searchByAuthor(){
@@ -96,6 +87,10 @@ public class MidTerm {
 		System.out.println("You have chosen to return a book");
 	}
 
+	public static void addBook() {
+		System.out.println("You have chosen to add a book to the list");
+	}
+	
 	// gets int value and checks if valid input
 	private static int getInt(Scanner scnr, String prompt) {
 		System.out.print(prompt);
