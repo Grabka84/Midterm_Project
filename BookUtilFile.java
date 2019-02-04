@@ -10,24 +10,23 @@ public class BookUtilFile {
 
 	private static Path filePath = Paths.get("Books.txt");
 
-
-	public static ArrayList<Book> bookList = new ArrayList<Book>();
-
 	public static ArrayList<Book> readFile() throws IOException {
 		List<String> lines = Files.readAllLines(filePath);
+		ArrayList<Book> bookList = new ArrayList<Book>();
 
 		for (String line : lines) {
-			String[] parts = line.split(",");
+			String[] parts = line.split(",\\s*");
 			try {
 				bookList.add(new Book(Integer.parseInt(parts[0]), parts[1], parts[2], Boolean.parseBoolean(parts[3]),parts[4]));
 			} catch (Exception e) {
+				System.out.println("Failed to parse line: " + line);
 				e.printStackTrace();
 			}
 		}
 		return bookList;
 	}
 
-	public static void SaveFile(Book books) throws IOException {
+	public static void SaveFile(List<Book> bookList) throws IOException {
 		if (Files.notExists(filePath)) {
 			Files.createFile(filePath);
 		}
