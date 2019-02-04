@@ -80,8 +80,7 @@ public class Book {
 			isCheckedIn = "checked out, ";
 			dueBy = "and is due back by " + getDueDate();
 		}
-		return "Book #" + getRefNum() + ": " + getTitle() + " by " + getAuthor() + " is " + isCheckedIn + dueBy;  
-				
+		return "Book #" + getRefNum() + ": " + getTitle() + " by " + getAuthor() + " is " + isCheckedIn + dueBy;  		
 	}
 
 }
