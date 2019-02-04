@@ -9,6 +9,7 @@ public class MidTerm {
 		int choice;
 		boolean userExit = false;
 		
+		populateSet();
 		displayHeader();
 		
 		do {
@@ -35,13 +36,17 @@ public class MidTerm {
 			}
 		} while (!userExit);
 		
+		
+		
 	}
-
+	
 	private static void displayHeader() {
 		System.out.println("Welcome to the Team Beard library terminal!");
 		System.out.println("Our books are ir-read-sistible!");
 		System.out.println("-------------------------------------------");
 	}
+	
+	private static void populateSet() {}
 	
 	private static int displayMenu(Scanner scnr) {
 		System.out.println("What would you like to do?");
@@ -54,28 +59,6 @@ public class MidTerm {
 		System.out.println("0. Exit the program");
 		int menuChoice = getInt(scnr, "Please choose a menu option (1-6, 0 exits): ");
 		return menuChoice; 
-	}
-	
-	// gets int value and checks if valid input
-	private static int getInt(Scanner scnr, String prompt) {
-		System.out.print(prompt);
-		boolean validRange = false;
-		do {
-			try {
-				int num = scnr.nextInt();
-				scnr.nextLine();
-				if (num > 6 || num < 0) {
-					System.out.println("Please enter a valid option.");
-					return getInt(scnr, prompt);
-				}
-				validRange = true;
-				return num;
-			} catch (InputMismatchException e) {
-				System.out.println("Enter a whole number, using digits.");
-				scnr.nextLine();
-				return getInt(scnr, prompt);
-			}
-		} while (!validRange);
 	}
 	
 	public static void displayBookList() {
@@ -98,5 +81,27 @@ public class MidTerm {
 	public static void returnBook(){
 		System.out.println("You have chosen to return a book");
 	}
-	
+
+	// gets int value and checks if valid input
+	private static int getInt(Scanner scnr, String prompt) {
+		System.out.print(prompt);
+		boolean validRange = false;
+		do {
+			try {
+				int num = scnr.nextInt();
+				scnr.nextLine();
+				if (num > 6 || num < 0) {
+					System.out.println("Please enter a valid option.");
+					return getInt(scnr, prompt);
+				}
+				validRange = true;
+				return num;
+			} catch (InputMismatchException e) {
+				System.out.println("Enter a whole number, using digits.");
+				scnr.nextLine();
+				return getInt(scnr, prompt);
+			}
+		} while (!validRange);
+	}
+		
 }
