@@ -6,6 +6,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class BookUtilFile {
 
 	private static Path filePath = Paths.get("Books.txt");
@@ -14,11 +15,14 @@ public class BookUtilFile {
 		if (Files.notExists(filePath)) {
 			Files.createFile(filePath);
 		}
-		
+
 		List<String> bookList = Arrays.asList(books.toString());
 		
-		Files.write(filePath, bookList, StandardOpenOption.TRUNCATE_EXISTING);
+	
+		
+		
+		
+		Files.write(filePath, bookList, StandardOpenOption);
 
 	}
-	
 }
