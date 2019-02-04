@@ -54,15 +54,10 @@ public class MidTerm {
 	   System.out.println("Thank you for using the terminal, goodbye!");
 	}
 	
-
 	private static void displayHeader() {
 		System.out.println("Welcome to the Team Beard library terminal!");
 		System.out.println("Our books are ir-read-sistible!");
 		System.out.println("-------------------------------------------");
-	}
-	
-	private static void saveSet() {
-		
 	}
 	
 	private static int displayMenu(Scanner scnr) {
