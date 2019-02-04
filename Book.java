@@ -1,12 +1,10 @@
-import java.util.Date;
-
 public class Book {
 	
 	private Integer refNum;
 	private String title;
 	private String author;
 	private boolean checkedIn;
-	private Date dueDate;
+	private String dueDate;
 	
 	// constructors 
 		// empty constructor
@@ -22,7 +20,7 @@ public class Book {
 		}
 		
 		// new book that may or may not be checked in
-		Book(Integer refNum, String title, String author, boolean checkedIn, Date dueDate){
+		Book(Integer refNum, String title, String author, boolean checkedIn, String dueDate){
 			setRefNum(refNum);
 			setTitle(title);
 			setAuthor(author);
@@ -63,25 +61,17 @@ public class Book {
 		this.refNum = refNum;
 	}
 	
-	public Date getDueDate() {
+	public String getDueDate() {
 		return dueDate;
 	}
 	
-	public void setDueDate(Date dueDate) {
+	public void setDueDate(String dueDate) {
 		this.dueDate = dueDate;
 	}
 	
 	@Override
 	public String toString() {
-		String isCheckedIn = "";
-		String dueBy = "";
-		if (getCheckedIn()) {
-			isCheckedIn = "available.";
-		} else {
-			isCheckedIn = "checked out, ";
-			dueBy = "and is due back by " + getDueDate();
-		}
-		return "Book #" + getRefNum() + ": " + getTitle() + " by " + getAuthor() + " is " + isCheckedIn + dueBy;  
+		return getRefNum() + "," + getTitle() + "," + getAuthor() + "," + getCheckedIn() + "," + getDueDate(); 
 	}
 
 }

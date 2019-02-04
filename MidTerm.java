@@ -1,15 +1,24 @@
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MidTerm {
-
+	
+	public static ArrayList<Book> bookList = new ArrayList<Book>();
+	
 	public static void main(String[] args) {
 		
 		Scanner scnr = new Scanner(System.in); // scanner for user input from console
 		int choice; // choice from menu to determine what the program will do
 		boolean userExit = false; // do while user exit = false
 		
-		populateSet(); // from the text file, pull the object data, Book datatype, into a Tree List (Array List)
+		try {
+			bookList = BookUtilFile.readFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} // from the text file, pull the object data, Book datatype, into a Tree List (Array List)
+		
 		displayHeader(); // displays an intro header that only appears once
 	   
 	   do { // while userExit = false
@@ -39,8 +48,8 @@ public class MidTerm {
 				userExit = true;
 			}
 		} while (!userExit);
-		
-	   saveSet(); // save the newly updated list to the txt file
+	   System.out.println(bookList);
+//	   saveSet(); // save the newly updated list to the txt file
 	   
 	   System.out.println("Thank you for using the terminal, goodbye!");
 	}
@@ -50,10 +59,6 @@ public class MidTerm {
 		System.out.println("Welcome to the Team Beard library terminal!");
 		System.out.println("Our books are ir-read-sistible!");
 		System.out.println("-------------------------------------------");
-	}
-	
-	private static void populateSet() {
-	
 	}
 	
 	private static void saveSet() {
