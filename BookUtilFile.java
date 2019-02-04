@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 
@@ -17,12 +18,11 @@ public class BookUtilFile {
 		}
 
 		List<String> bookList = Arrays.asList(books.toString());
+	//Book(Integer refNum, String title, String author, boolean checkedIn, Date dueDate)
+		list.add(200,"Outliers", "Malcolm Gladwell",checkedIn, dueDate);
 		
-	
 		
-		
-		
-		Files.write(filePath, bookList, StandardOpenOption);
+		Files.write(filePath, bookList, StandardOpenOption.APPEND);
 
 	}
 }
