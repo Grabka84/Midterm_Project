@@ -74,6 +74,7 @@ public class MidTerm {
 	}
 	
 	public static void displayBookList() {
+		System.out.println(bookList);
 		System.out.println("You have chosen to display all of the books in the current list");
 		
 	}

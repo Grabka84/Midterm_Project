@@ -68,10 +68,12 @@ public class Book {
 	public void setDueDate(String dueDate) {
 		this.dueDate = dueDate;
 	}
-	
+
 	@Override
 	public String toString() {
-		return getRefNum() + "," + getTitle() + "," + getAuthor() + "," + getCheckedIn() + "," + getDueDate(); 
+		return "Book [refNum=" + refNum + ", title=" + title + ", author=" + author + ", checkedIn=" + checkedIn
+				+ ", dueDate=" + dueDate + "]\n";
 	}
+
 
 }
