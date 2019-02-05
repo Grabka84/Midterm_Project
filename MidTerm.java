@@ -1,5 +1,9 @@
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -117,22 +121,36 @@ public class MidTerm {
 	
 	public static void checkOutBook(Scanner scnr){
 		System.out.println("You have chosen to check out a book");
-		System.out.println("Which book would you like. ");
+		System.out.print("Which book title would you like to check out? ");
 		String bookChoice = scnr.nextLine();
-		ArrayList<Book> outChoice = new ArrayList<>();
-		
+		// in order to add a due date, find out what the current date is first, then add 14
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+		// getting today's date in Calendar
+		Calendar calToday = Calendar.getInstance();
+		calToday.add(Calendar.DAY_OF_YEAR, 14);
+		// converting Calendar type to Date type
+		Date calDueDate = calToday.getTime();
+		// converting to string
+		String dueDate = df.format(calDueDate);
+				
 		for(Book book : bookList) {
-			if(book.getTitle().equals(outChoice)) {
-				outChoice.remove(book);
-				System.out.println("The book you're checking out is: " + book.getTitle());
-				for(Book check : outChoice) {
-					System.out.println(check.getTitle());
+			if(book.getTitle().contains(bookChoice)) {
+				if(book.getCheckedIn()) {
+					book.setCheckedIn(false);
+					book.setDueDate(dueDate);
+					System.out.println("");
+					System.out.println("The book you're checking out is: " + book.getTitle() + " and it is due on: " + book.getDueDate());
+				} else {
+					System.out.println(book.getTitle() + " Is already checked out. ");
+					System.out.println("The Book is due back " + book.getDueDate());
 				}
+			}else {
+				System.out.println("Sorry, we don't have that book in stock currently. ");
 			}
 		}
 		System.out.println("");
 	}
-	
+
 	public static void returnBook(Scanner scnr){ //dont do add book yet(Luke)
 		System.out.println("You have chosen to return a book");
 		System.out.println("Which book would you like to return? ");

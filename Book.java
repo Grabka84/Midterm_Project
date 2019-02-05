@@ -72,7 +72,7 @@ public class Book {
 	@Override
 	public String toString() {
 		return "Book [refNum=" + refNum + ", title=" + title + ", author=" + author + ", checkedIn=" + checkedIn
-				+ ", dueDate=" + dueDate + "]\n";
+				+ ", dueDate=" + dueDate + "\n";
 	}
 
 
