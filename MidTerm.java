@@ -36,10 +36,10 @@ public class MidTerm {
 				searchByKeyword(scnr); // same thing except for titles
 				break;
 			case 4:
-				checkOutBook(scnr); // change the status of a book to checkedOut = true, then assign a due date
+				checkOutBook(scnr); // change the status of a book to checkedIn = false, then assign a due date
 				break;
 			case 5:
-				returnBook(scnr); // change status of a book to checkoOut = false, then clear the due date
+				returnBook(scnr); // change status of a book to checkedIn = true, then clear the due date
 				break;
 			case 6:
 				addBook(scnr); // add a new book to the list
@@ -48,8 +48,11 @@ public class MidTerm {
 				userExit = true;
 			}
 		} while (!userExit);
-	   System.out.println(bookList);
-//	   saveSet(); // save the newly updated list to the txt file
+	   try {
+		   BookUtilFile.SaveFile(bookList);
+	   } catch (IOException e) {
+		   e.printStackTrace();
+	} // save the newly updated list to the txt file
 	   
 	   System.out.println("Thank you for using the terminal, goodbye!");
 	}
@@ -117,56 +120,50 @@ public class MidTerm {
 	
 	public static void checkOutBook(Scanner scnr){
 		System.out.println("You have chosen to check out a book");
-		System.out.println("Which book would you like. ");
-		String bookChoice = scnr.nextLine();
-		ArrayList<Book> outChoice = new ArrayList<>();
 		
-		for(Book book : bookList) {
-			if(book.getTitle().equals(outChoice)) {
-				outChoice.remove(book);
-				System.out.println("The book you're checking out is: " + book.getTitle());
-				for(Book check : outChoice) {
-					System.out.println(check.getTitle());
-				}
-			}
-		}
 		System.out.println("");
 	}
 	
-	public static void returnBook(Scanner scnr){ //dont do add book yet(Luke)
+	public static void returnBook(Scanner scnr){ 
 		System.out.println("You have chosen to return a book");
-		System.out.println("Which book would you like to return? ");
+		System.out.print("Which book would you like to return? ");
 		String bookReturn = scnr.nextLine();
-		ArrayList<Book> returnChoice = new ArrayList<>();
-		
 		for(Book book : bookList) { 
-			if(book.getTitle().equals(returnChoice)) {
-				returnChoice.add(book);
-				System.out.println("The book you're returning is: " + book.getTitle()); 
-				for(Book reCheck : returnChoice) {
-					System.out.println(reCheck.getTitle());
+			if(book.getTitle().equalsIgnoreCase(bookReturn)) {
+				if(book.getCheckedIn()) {
+					System.out.println("That book is already checked in");
+				} else {
+					System.out.println("The book you're returning is: " + book.getTitle() + " and the due date is " + book.getDueDate()); 
+					book.setCheckedIn(true);
+					book.setDueDate(null);
 				}
-			}
+			} 
 		}
 		System.out.println("");
 	}
 
 	public static void addBook(Scanner scnr) {
 		System.out.println("You have chosen to add a book to the list");
-		System.out.println("Which book would you like to add");
-		String bookAdd = scnr.nextLine();
-		ArrayList<Book> addChoice = new ArrayList<>();
-		
-		for(Book book : bookList) {
-			if(book.equals(addChoice)) {
-				addChoice.add(book);
-				System.out.println("The book you're adding is " + book.getTitle());
-				for(Book addB : addChoice) {
-					System.out.println(addB.getTitle());
-				}
-			}
-		}
-		System.out.println("");
+		String titleAdd; // initialize titleAdd variable
+		boolean isValid; // for the do loop
+		do {
+			System.out.print("What is name of the book you would like to add: ");
+			isValid = true; // if input doesn't trigger the if loop to set isValid to false, then default exits do loop
+			titleAdd = scnr.nextLine();
+			for (Book book : bookList) {
+				if (titleAdd.equalsIgnoreCase(book.getTitle())) {
+					System.out.println("That book is already on the list");
+					isValid = false;
+				} 
+			} 
+		} while (!isValid);
+		System.out.print("What is the author of the book you would like to add: ");
+		String authAdd = scnr.nextLine();
+		Integer refAdd = 200 + bookList.size();
+		Book addBook = new Book(refAdd, titleAdd, authAdd);
+		bookList.add(addBook);		
+		System.out.println("You have added " + addBook.getTitle() + " by author " + addBook.getAuthor() + " and has been given the reference number " + addBook.getRefNum());
+		System.out.println();
 	}
 	
 	// gets int value and checks if valid input
