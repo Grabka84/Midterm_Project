@@ -74,6 +74,7 @@ public class MidTerm {
 	}
 	
 	private static int displayMenu(Scanner scnr) {
+		System.out.println("");
 		System.out.println("What would you like to do?");
 		System.out.println("1. Display the entire list of books");
 		System.out.println("2. Search for a book by author");
@@ -113,12 +114,16 @@ public class MidTerm {
 		for(Book book : bookList) {
 			if(book.getAuthor().equalsIgnoreCase(authChoice) || book.getAuthor().contains(authChoice)) {
 				authString.add(book);
-				System.out.println("Books by " + book.getAuthor() + " are: ");
-				for(Book auth : authString) {
-					System.out.println(auth.getTitle());
-				}
-			} else {
-				System.out.println("Sorry, we don't have any books by that author.");
+			}
+		}
+		
+		if (authString.size() == 0) {
+			System.out.println();
+			System.out.println("Sorry, we don't have any books by that author. ");
+		} else {
+			System.out.println("Books by " + authChoice + " are: ");
+			for(Book auth : authString) {
+				System.out.println(auth.getTitle() + " by " + auth.getAuthor());
 			}
 		}
 		System.out.println("");
@@ -128,20 +133,22 @@ public class MidTerm {
 		System.out.println("You have chosen to search by title keyword");
 		System.out.print("Please enter keyword: ");
 		String keyChoice = scnr.nextLine();
+		System.out.println();
 		ArrayList<Book> keyString = new ArrayList<>();
 		
 		for(Book book : bookList) {
 			if(book.getTitle().contains(keyChoice) || book.getTitle().equalsIgnoreCase(keyChoice)) {
 				keyString.add(book);
-				System.out.println("Keyword matches " + book.getTitle());
-				for(Book key : keyString) {
-					System.out.println(key.getTitle());
-				}
-			} else {
-				System.out.println("Sorry, we don't have any books with that keyword.");
 			}
 		}
-		System.out.println("");
+		if (keyString.size() == 0) {
+			System.out.println();
+			System.out.println("Sorry, we don't have any books with that keyword.");
+		} else {
+			for(Book key : keyString) {
+				System.out.println(key.getTitle());
+			}
+		}
 	}
 	
 	public static void checkOutBook(Scanner scnr){
