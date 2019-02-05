@@ -40,10 +40,10 @@ public class MidTerm {
 				searchByKeyword(scnr); // same thing except for titles
 				break;
 			case 4:
-				checkOutBook(scnr); // change the status of a book to checkedOut = true, then assign a due date
+				checkOutBook(scnr); // change the status of a book to checkedIn = false, then assign a due date
 				break;
 			case 5:
-				returnBook(scnr); // change status of a book to checkoOut = false, then clear the due date
+				returnBook(scnr); // change status of a book to checkedIn = true, then clear the due date
 				break;
 			case 6:
 				addBook(scnr); // add a new book to the list
@@ -52,8 +52,17 @@ public class MidTerm {
 				userExit = true;
 			}
 		} while (!userExit);
-	   System.out.println(bookList);
-//	   saveSet(); // save the newly updated list to the txt file
+	   try {
+		   BookUtilFile.SaveFile(bookList);
+	   } catch (IOException e) {
+		   e.printStackTrace();
+	} // save the newly updated list to the txt file
+	      
+	   try {
+		BookUtilFile.SaveFile(bookList);
+	} catch (IOException e) {
+		e.printStackTrace();
+	}// save the newly updated list to the txt file
 	   
 	   System.out.println("Thank you for using the terminal, goodbye!");
 	}
@@ -78,9 +87,21 @@ public class MidTerm {
 	}
 	
 	public static void displayBookList() {
-		System.out.println(bookList);
-		System.out.println("You have chosen to display all of the books in the current list");
-		
+		System.out.printf("%-15s %-53s %-40s %s\n", "Reference#","Title", "Author", "Availability");
+		System.out.printf("%s\n","~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		for(Book book: bookList) {
+			// create a variable for checkedInDesc
+			// use if/else to set that var
+			// use that var in the printf below
+			String checked="";
+			if(book.getCheckedIn()== true) {
+				checked = "Checked In";
+			}else{
+				checked = "Not Available";
+			}
+			System.out.printf("%-15s %-53s %-40s %s\n", book.getRefNum(), book.getTitle(),book.getAuthor(),checked);
+		}		
+		System.out.println();
 	}
 	
 	public static void searchByAuthor(Scanner scnr){
@@ -90,12 +111,14 @@ public class MidTerm {
 		ArrayList<Book> authString = new ArrayList<>(); 
 		
 		for(Book book : bookList) {
-			if(book.getAuthor().contains(authChoice)) {
+			if(book.getAuthor().equalsIgnoreCase(authChoice) || book.getAuthor().contains(authChoice)) {
 				authString.add(book);
 				System.out.println("Books by " + book.getAuthor() + " are: ");
 				for(Book auth : authString) {
 					System.out.println(auth.getTitle());
 				}
+			} else {
+				System.out.println("Sorry, we don't have any books by that author.");
 			}
 		}
 		System.out.println("");
@@ -108,12 +131,14 @@ public class MidTerm {
 		ArrayList<Book> keyString = new ArrayList<>();
 		
 		for(Book book : bookList) {
-			if(book.getTitle().contains(keyChoice)) {
+			if(book.getTitle().contains(keyChoice) || book.getTitle().equalsIgnoreCase(keyChoice)) {
 				keyString.add(book);
 				System.out.println("Keyword matches " + book.getTitle());
 				for(Book key : keyString) {
 					System.out.println(key.getTitle());
 				}
+			} else {
+				System.out.println("Sorry, we don't have any books with that keyword.");
 			}
 		}
 		System.out.println("");
@@ -134,57 +159,65 @@ public class MidTerm {
 		String dueDate = df.format(calDueDate);
 				
 		for(Book book : bookList) {
-			if(book.getTitle().contains(bookChoice)) {
+			if(book.getTitle().contains(bookChoice) || book.getTitle().equalsIgnoreCase(bookChoice)) {
 				if(book.getCheckedIn()) {
 					book.setCheckedIn(false);
 					book.setDueDate(dueDate);
 					System.out.println("");
 					System.out.println("The book you're checking out is: " + book.getTitle() + " and it is due on: " + book.getDueDate());
+					return;
 				} else {
 					System.out.println(book.getTitle() + " Is already checked out. ");
 					System.out.println("The Book is due back " + book.getDueDate());
 				}
-			}else {
+			} else {
 				System.out.println("Sorry, we don't have that book in stock currently. ");
+				continue;
 			}
 		}
 		System.out.println("");
 	}
 
-	public static void returnBook(Scanner scnr){ //dont do add book yet(Luke)
+	public static void returnBook(Scanner scnr){ 
 		System.out.println("You have chosen to return a book");
-		System.out.println("Which book would you like to return? ");
+		System.out.print("Which book would you like to return? ");
 		String bookReturn = scnr.nextLine();
-		ArrayList<Book> returnChoice = new ArrayList<>();
-		
 		for(Book book : bookList) { 
-			if(book.getTitle().equals(returnChoice)) {
-				returnChoice.add(book);
-				System.out.println("The book you're returning is: " + book.getTitle()); 
-				for(Book reCheck : returnChoice) {
-					System.out.println(reCheck.getTitle());
+			if(book.getTitle().equalsIgnoreCase(bookReturn)) {
+				if(book.getCheckedIn()) {
+					System.out.println("That book is already checked in");
+				} else {
+					System.out.println("The book you're returning is: " + book.getTitle() + " and the due date is " + book.getDueDate()); 
+					book.setCheckedIn(true);
+					book.setDueDate(null);
 				}
-			}
+			} 
 		}
 		System.out.println("");
 	}
 
 	public static void addBook(Scanner scnr) {
 		System.out.println("You have chosen to add a book to the list");
-		System.out.println("Which book would you like to add");
-		String bookAdd = scnr.nextLine();
-		ArrayList<Book> addChoice = new ArrayList<>();
-		
-		for(Book book : bookList) {
-			if(book.equals(addChoice)) {
-				addChoice.add(book);
-				System.out.println("The book you're adding is " + book.getTitle());
-				for(Book addB : addChoice) {
-					System.out.println(addB.getTitle());
-				}
-			}
-		}
-		System.out.println("");
+		String titleAdd; // initialize titleAdd variable
+		boolean isValid; // for the do loop
+		do {
+			System.out.print("What is name of the book you would like to add: ");
+			isValid = true; // if input doesn't trigger the if loop to set isValid to false, then default exits do loop
+			titleAdd = scnr.nextLine();
+			for (Book book : bookList) {
+				if (titleAdd.equalsIgnoreCase(book.getTitle())) {
+					System.out.println("That book is already on the list");
+					isValid = false;
+				} 
+			} 
+		} while (!isValid);
+		System.out.print("What is the author of the book you would like to add: ");
+		String authAdd = scnr.nextLine();
+		Integer refAdd = 200 + bookList.size();
+		Book addBook = new Book(refAdd, titleAdd, authAdd);
+		bookList.add(addBook);		
+		System.out.println("You have added " + addBook.getTitle() + " by author " + addBook.getAuthor() + " and has been given the reference number " + addBook.getRefNum());
+		System.out.println();
 	}
 	
 	// gets int value and checks if valid input

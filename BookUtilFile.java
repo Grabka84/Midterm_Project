@@ -39,7 +39,7 @@ public class BookUtilFile {
 			String auth = book.getAuthor();
 			String chkin = String.valueOf(book.getCheckedIn());
 			String due = String.valueOf(book.getDueDate());
-			stringBookList.add(ref + "," + tit + "," + auth + "," + chkin + "," + due);
+			stringBookList.add(ref + ", " + tit + ", " + auth + ", " + chkin + ", " + due);
 		}
 
 		Files.write(filePath, stringBookList, StandardOpenOption.TRUNCATE_EXISTING);

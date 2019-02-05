@@ -1,12 +1,15 @@
-200, Outliners, Malcolm Galdwell, True, Null
-201, Kings of Non Fiction, Ira Glass, True, Null
-202, 7 Habits of Highly Effective People, Stephen Covey, True, Null
-203, Old Yeller, Fred Gibson, True, Null
-204, My Side Of The Mountain, Jean Craighead George, True, Null
-205, Inca Gold, Clive Cussler, True, Null
-206, Rich Dad Poor Dad, Robert T. Kiyosaki, True, Null
-207, Unfuck Yourself, Gary John Bishop, True, Null
-208, The Subtle Art of Not Giving a Fuck, Mark Manson, True, Null
-209, Black Privilege, Charlamagne The God, True, Null
-210, The Four Agreements, don Miguel Ruiz, True, Null
-211, Becoming, Michelle Obama, True, Null
+200, Outliers, Malcolm Galdwell, true, Null
+201, Kings of Non Fiction, Ira Glass, true, Null
+202, 7 Habits of Highly Effective People, Stephen Covey, true, Null
+203, Old Yeller, Fred Gibson, true, Null
+204, My Side Of The Mountain, Jean Craighead George, true, Null
+205, Inca Gold, Clive Cussler, true, Null
+206, Rich Dad Poor Dad, Robert T. Kiyosaki, true, Null
+207, Unfuck Yourself, Gary John Bishop, true, Null
+208, The Subtle Art of Not Giving a Fuck, Mark Manson, true, Null
+209, Black Privilege, Charlamagne The God, true, Null
+210, The Four Agreements, don Miguel Ruiz, true, Null
+211, Becoming, Michelle Obama, true, Null
+212, Bible, Christians, true, null
+213, The Amazing Spiderman, Stan Lee, true, null
+214, Quaran, Mohammad, true, null
