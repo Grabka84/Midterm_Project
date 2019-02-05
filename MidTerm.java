@@ -29,20 +29,20 @@ public class MidTerm {
 				displayBookList(); // display the whole array list, all books, all statuses
 				break;
 			case 2:
-				searchByAuthor(); // using a keyword, display all books that contain that author 
+				searchByAuthor(scnr); // using a keyword, display all books that contain that author 
 								// take from bookList and any object where author == "" put that into a new array then display that
 				break;
 			case 3:
-				searchByKeyword(); // same thing except for titles
+				searchByKeyword(scnr); // same thing except for titles
 				break;
 			case 4:
-				checkOutBook(); // change the status of a book to checkedOut = true, then assign a due date
+				checkOutBook(scnr); // change the status of a book to checkedOut = true, then assign a due date
 				break;
 			case 5:
-				returnBook(); // change status of a book to checkoOut = false, then clear the due date
+				returnBook(scnr); // change status of a book to checkoOut = false, then clear the due date
 				break;
 			case 6:
-				addBook(); // add a new book to the list
+				addBook(scnr); // add a new book to the list
 				break;
 			case 0:
 				userExit = true;
@@ -78,24 +78,94 @@ public class MidTerm {
 		
 	}
 	
-	public static void searchByAuthor(){
+	public static void searchByAuthor(Scanner scnr){
 		System.out.println("You have chosen to search by author");
+		System.out.print("Which author do you choose? ");
+		String authChoice = scnr.nextLine();
+		ArrayList<Book> authString = new ArrayList<>(); 
+		
+		for(Book book : bookList) {
+			if(book.getAuthor().contains(authChoice)) {
+				authString.add(book);
+				System.out.println("Books by " + book.getAuthor() + " are: ");
+				for(Book auth : authString) {
+					System.out.println(auth.getTitle());
+				}
+			}
+		}
+		System.out.println("");
 	}
 	
-	public static void searchByKeyword(){
+	public static void searchByKeyword(Scanner scnr){
 		System.out.println("You have chosen to search by title keyword");
+		System.out.print("Please enter keyword: ");
+		String keyChoice = scnr.nextLine();
+		ArrayList<Book> keyString = new ArrayList<>();
+		
+		for(Book book : bookList) {
+			if(book.getTitle().contains(keyChoice)) {
+				keyString.add(book);
+				System.out.println("Keyword matches " + book.getTitle());
+				for(Book key : keyString) {
+					System.out.println(key.getTitle());
+				}
+			}
+		}
+		System.out.println("");
 	}
 	
-	public static void checkOutBook(){
+	public static void checkOutBook(Scanner scnr){
 		System.out.println("You have chosen to check out a book");
+		System.out.println("Which book would you like. ");
+		String bookChoice = scnr.nextLine();
+		ArrayList<Book> outChoice = new ArrayList<>();
+		
+		for(Book book : bookList) {
+			if(book.getTitle().equals(outChoice)) {
+				outChoice.remove(book);
+				System.out.println("The book you're checking out is: " + book.getTitle());
+				for(Book check : outChoice) {
+					System.out.println(check.getTitle());
+				}
+			}
+		}
+		System.out.println("");
 	}
 	
-	public static void returnBook(){
+	public static void returnBook(Scanner scnr){ //dont do add book yet(Luke)
 		System.out.println("You have chosen to return a book");
+		System.out.println("Which book would you like to return? ");
+		String bookReturn = scnr.nextLine();
+		ArrayList<Book> returnChoice = new ArrayList<>();
+		
+		for(Book book : bookList) { 
+			if(book.getTitle().equals(returnChoice)) {
+				returnChoice.add(book);
+				System.out.println("The book you're returning is: " + book.getTitle()); 
+				for(Book reCheck : returnChoice) {
+					System.out.println(reCheck.getTitle());
+				}
+			}
+		}
+		System.out.println("");
 	}
 
-	public static void addBook() {
+	public static void addBook(Scanner scnr) {
 		System.out.println("You have chosen to add a book to the list");
+		System.out.println("Which book would you like to add");
+		String bookAdd = scnr.nextLine();
+		ArrayList<Book> addChoice = new ArrayList<>();
+		
+		for(Book book : bookList) {
+			if(book.equals(addChoice)) {
+				addChoice.add(book);
+				System.out.println("The book you're adding is " + book.getTitle());
+				for(Book addB : addChoice) {
+					System.out.println(addB.getTitle());
+				}
+			}
+		}
+		System.out.println("");
 	}
 	
 	// gets int value and checks if valid input
