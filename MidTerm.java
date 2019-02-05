@@ -48,8 +48,13 @@ public class MidTerm {
 				userExit = true;
 			}
 		} while (!userExit);
-	   System.out.println(bookList);
-//	   saveSet(); // save the newly updated list to the txt file
+	   
+	   
+	   try {
+		BookUtilFile.SaveFile(bookList);
+	} catch (IOException e) {
+		e.printStackTrace();
+	}// save the newly updated list to the txt file
 	   
 	   System.out.println("Thank you for using the terminal, goodbye!");
 	}
@@ -74,7 +79,21 @@ public class MidTerm {
 	}
 	
 	public static void displayBookList() {
-		System.out.println(bookList);
+		System.out.printf("%-15s %-53s %-40s %s\n", "Reference#","Title", "Author", "Availability");
+		System.out.printf("%s\n","~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		for(Book book: bookList) {
+			// create a variable for checkedInDesc
+			// use if/else to set that var
+			// use that var in the printf below
+			String checked="";
+			if(book.getCheckedIn()== true) {
+				checked = "Checked In";
+			}else{
+				checked= "Not Available";
+			}
+			System.out.printf("%-15s %-53s %-40s %s\n", book.getRefNum(), book.getTitle(),book.getAuthor(),checked);
+		}		
+		System.out.println();
 		System.out.println("You have chosen to display all of the books in the current list");
 		
 	}
