@@ -102,13 +102,13 @@ public class MidTerm {
 			}
 			System.out.printf("%-15s %-53s %-40s %s\n", book.getRefNum(), book.getTitle(),book.getAuthor(),checked);
 		}		
-		System.out.println();
 	}
 	
 	public static void searchByAuthor(Scanner scnr){
 		System.out.println("You have chosen to search by author");
 		System.out.print("Which author do you choose? ");
 		String authChoice = scnr.nextLine();
+		System.out.println();
 		ArrayList<Book> authString = new ArrayList<>(); 
 		
 		for(Book book : bookList) {
@@ -126,7 +126,6 @@ public class MidTerm {
 				System.out.println(auth.getTitle() + " by " + auth.getAuthor());
 			}
 		}
-		System.out.println("");
 	}
 	
 	public static void searchByKeyword(Scanner scnr){
@@ -145,8 +144,9 @@ public class MidTerm {
 			System.out.println();
 			System.out.println("Sorry, we don't have any books with that keyword.");
 		} else {
+			System.out.println("Books containing " + keyChoice + " are: ");
 			for(Book key : keyString) {
-				System.out.println(key.getTitle());
+				System.out.println(key.getTitle() + " by " + key.getAuthor());
 			}
 		}
 	}
@@ -177,30 +177,27 @@ public class MidTerm {
 					System.out.println(book.getTitle() + " Is already checked out. ");
 					System.out.println("The Book is due back " + book.getDueDate());
 				}
-			} else {
-				System.out.println("Sorry, we don't have that book in stock currently. ");
-				continue;
 			}
 		}
-		System.out.println("");
+		System.out.println("Sorry, we don't have that book in stock currently. ");
 	}
 
 	public static void returnBook(Scanner scnr){ 
 		System.out.println("You have chosen to return a book");
 		System.out.print("Which book would you like to return? ");
 		String bookReturn = scnr.nextLine();
+		System.out.println();
 		for(Book book : bookList) { 
 			if(book.getTitle().equalsIgnoreCase(bookReturn)) {
 				if(book.getCheckedIn()) {
 					System.out.println("That book is already checked in");
 				} else {
-					System.out.println("The book you're returning is: " + book.getTitle() + " and the due date is " + book.getDueDate()); 
+					System.out.println("The book you're returning is: " + book.getTitle() + " and the due date was listed as " + book.getDueDate()); 
 					book.setCheckedIn(true);
 					book.setDueDate(null);
 				}
-			} 
+			}
 		}
-		System.out.println("");
 	}
 
 	public static void addBook(Scanner scnr) {
@@ -224,7 +221,6 @@ public class MidTerm {
 		Book addBook = new Book(refAdd, titleAdd, authAdd);
 		bookList.add(addBook);		
 		System.out.println("You have added " + addBook.getTitle() + " by author " + addBook.getAuthor() + " and has been given the reference number " + addBook.getRefNum());
-		System.out.println();
 	}
 	
 	// gets int value and checks if valid input
