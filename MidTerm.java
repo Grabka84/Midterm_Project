@@ -118,7 +118,6 @@ public class MidTerm {
 		}
 		
 		if (authString.size() == 0) {
-			System.out.println();
 			System.out.println("Sorry, we don't have any books by that author. ");
 		} else {
 			System.out.println("Books by " + authChoice + " are: ");
@@ -141,7 +140,6 @@ public class MidTerm {
 			}
 		}
 		if (keyString.size() == 0) {
-			System.out.println();
 			System.out.println("Sorry, we don't have any books with that keyword.");
 		} else {
 			System.out.println("Books containing " + keyChoice + " are: ");
@@ -155,6 +153,7 @@ public class MidTerm {
 		System.out.println("You have chosen to check out a book");
 		System.out.print("Which book title would you like to check out? ");
 		String bookChoice = scnr.nextLine();
+		System.out.println();
 		// in order to add a due date, find out what the current date is first, then add 14
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		// getting today's date in Calendar
@@ -164,17 +163,16 @@ public class MidTerm {
 		Date calDueDate = calToday.getTime();
 		// converting to string
 		String dueDate = df.format(calDueDate);
-				
+		
 		for(Book book : bookList) {
 			if(book.getTitle().contains(bookChoice) || book.getTitle().equalsIgnoreCase(bookChoice)) {
 				if(book.getCheckedIn()) {
 					book.setCheckedIn(false);
 					book.setDueDate(dueDate);
-					System.out.println("");
-					System.out.println("The book you're checking out is: " + book.getTitle() + " and it is due on: " + book.getDueDate());
+					System.out.println("The book you're checking out is: " + book.getTitle() + " by " + book.getAuthor() + " and it is due on: " + book.getDueDate());
 					return;
 				} else {
-					System.out.println(book.getTitle() + " Is already checked out. ");
+					System.out.println(book.getTitle() + " is already checked out. ");
 					System.out.println("The Book is due back " + book.getDueDate());
 				}
 			}
@@ -188,7 +186,7 @@ public class MidTerm {
 		String bookReturn = scnr.nextLine();
 		System.out.println();
 		for(Book book : bookList) { 
-			if(book.getTitle().equalsIgnoreCase(bookReturn)) {
+			if(book.getTitle().equalsIgnoreCase(bookReturn) || book.getTitle().contains(bookReturn)) {
 				if(book.getCheckedIn()) {
 					System.out.println("That book is already checked in");
 				} else {
@@ -244,5 +242,4 @@ public class MidTerm {
 			}
 		} while (!validRange);
 	}
-		
 }

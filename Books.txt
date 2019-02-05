@@ -10,7 +10,5 @@
 209, Black Privilege, Charlamagne The God, true, Null
 210, The Four Agreements, don Miguel Ruiz, true, Null
 211, Becoming, Michelle Obama, true, Null
-212, Bible, Christians, true, null
-213, The Amazing Spiderman, Stan Lee, true, null
-214, Quaran, Mohammad, true, null
-215, The Arena, Norvell, true, null
+212, The Amazing Spiderman, Stan Lee, true, null
+213, The Arena, Norvell, true, null
